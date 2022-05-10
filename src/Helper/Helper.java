@@ -1,9 +1,7 @@
 package Helper;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import Utilities.SortedList;
 
@@ -92,9 +90,13 @@ public class Helper {
     }
 
     void readWords() throws FileNotFoundException {
-        try (BufferedReader br = new BufferedReader(new FileReader("5words.csv"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(
+                new BufferedInputStream(
+                        Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream("Dir/5words.csv"))),
+                        StandardCharsets.UTF_8))) {
+           String line;
+           while ((line = br.readLine()) != null) {
                 Word newWord = new Word(line);
                 unscoredWords.add(newWord);
             }
